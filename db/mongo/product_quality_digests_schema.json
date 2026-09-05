@@ -1,0 +1,86 @@
+{
+  "$jsonSchema": {
+    "bsonType": "object",
+    "required": ["_id", "productId", "summaryVersion", "reviewThresholdMet", "totalReviewsAnalyzed", "aspects", "verifiedMedia", "updatedAt"],
+    "properties": {
+      "_id": {
+        "bsonType": "string",
+        "description": "Unique digest document identifier, e.g., digest_style_3948102"
+      },
+      "productId": {
+        "bsonType": "string",
+        "description": "Product catalog catalog ID"
+      },
+      "summaryVersion": {
+        "bsonType": "double",
+        "description": "NLP digest model version number"
+      },
+      "reviewThresholdMet": {
+        "bsonType": "bool",
+        "description": "True if total reviews >= 10 threshold"
+      },
+      "totalReviewsAnalyzed": {
+        "bsonType": "int",
+        "minimum": 0,
+        "description": "Count of text reviews processed"
+      },
+      "overallQualityScore": {
+        "bsonType": "double",
+        "minimum": 1.0,
+        "maximum": 5.0,
+        "description": "Aggregated review rating score"
+      },
+      "aspects": {
+        "bsonType": "array",
+        "description": "Aspect-based sentiment analysis clusters",
+        "items": {
+          "bsonType": "object",
+          "required": ["aspectName", "sentiment", "summaryText", "supportingReviews"],
+          "properties": {
+            "aspectName": {
+              "enum": ["Fabric & Material", "Color Permanence", "Stitching & Durability", "Fit & Stretch", "Post-Wash Condition"]
+            },
+            "sentiment": {
+              "enum": ["POSITIVE", "NEUTRAL", "NEGATIVE"]
+            },
+            "confidenceScore": {
+              "bsonType": "double",
+              "minimum": 0.0,
+              "maximum": 1.0
+            },
+            "summaryText": {
+              "bsonType": "string"
+            },
+            "supportingReviews": {
+              "bsonType": "array",
+              "items": {
+                "bsonType": "string"
+              }
+            }
+          }
+        }
+      },
+      "verifiedMedia": {
+        "bsonType": "array",
+        "description": "CNN-approved verified customer photos and videos",
+        "items": {
+          "bsonType": "object",
+          "required": ["mediaId", "url", "thumbnailUrl", "variantSize", "sourceReviewId"],
+          "properties": {
+            "mediaId": { "bsonType": "string" },
+            "url": { "bsonType": "string" },
+            "thumbnailUrl": { "bsonType": "string" },
+            "variantSize": { "bsonType": "string" },
+            "variantColor": { "bsonType": "string" },
+            "qualityScore": { "bsonType": "double" },
+            "sourceReviewId": { "bsonType": "string" }
+          }
+        }
+      },
+      "updatedAt": {
+        "bsonType": "date",
+        "description": "Timestamp of digest last update"
+      }
+    }
+  }
+}

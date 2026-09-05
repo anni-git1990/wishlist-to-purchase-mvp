@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CustomerEvidenceOpenedEvent",
+  "type": "object",
+  "properties": {
+    "eventId": { "type": "string" },
+    "eventName": { "type": "string", "const": "customer_evidence_opened" },
+    "timestamp": { "type": "string" },
+    "userId": { "type": "string" },
+    "productId": { "type": "string" },
+    "evidenceType": { "type": "string", "enum": ["PHOTO", "VIDEO", "REVIEW_TEXT"] },
+    "reviewId": { "type": "string" }
+  },
+  "required": ["eventId", "eventName", "timestamp", "userId", "productId", "evidenceType", "reviewId"]
+}

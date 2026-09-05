@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "QualityDigestImpressionEvent",
+  "type": "object",
+  "properties": {
+    "eventId": { "type": "string" },
+    "eventName": { "type": "string", "const": "quality_digest_impression" },
+    "timestamp": { "type": "string" },
+    "userId": { "type": "string" },
+    "productId": { "type": "string" },
+    "reviewCount": { "type": "integer", "minimum": 0 },
+    "mediaCount": { "type": "integer", "minimum": 0 },
+    "summaryVersion": { "type": "string" }
+  },
+  "required": ["eventId", "eventName", "timestamp", "userId", "productId", "reviewCount", "mediaCount", "summaryVersion"]
+}

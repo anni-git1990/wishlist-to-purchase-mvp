@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ConfidenceFeedbackSubmittedEvent",
+  "type": "object",
+  "properties": {
+    "eventId": { "type": "string" },
+    "eventName": { "type": "string", "const": "confidence_feedback_submitted" },
+    "timestamp": { "type": "string" },
+    "userId": { "type": "string" },
+    "productId": { "type": "string" },
+    "feature": { "type": "string", "enum": ["FIT_CONFIDENCE", "QUALITY_DIGEST"] },
+    "helpful": { "type": "boolean" },
+    "issueType": { "type": "string" }
+  },
+  "required": ["eventId", "eventName", "timestamp", "userId", "productId", "feature", "helpful"]
+}

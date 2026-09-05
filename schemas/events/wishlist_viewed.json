@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "WishlistViewedEvent",
+  "type": "object",
+  "properties": {
+    "eventId": { "type": "string" },
+    "eventName": { "type": "string", "const": "wishlist_viewed" },
+    "timestamp": { "type": "string" },
+    "userId": { "type": "string" },
+    "sessionId": { "type": "string" },
+    "wishlistItemCount": { "type": "integer", "minimum": 0 },
+    "experimentGroup": { "type": "string", "enum": ["CURRENT_WISHLIST", "TREATMENT_FIT_QUALITY_V1"] }
+  },
+  "required": ["eventId", "eventName", "timestamp", "userId", "sessionId", "wishlistItemCount", "experimentGroup"]
+}

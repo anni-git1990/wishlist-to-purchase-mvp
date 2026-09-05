@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "WishlistTriggerOpenedEvent",
+  "type": "object",
+  "properties": {
+    "eventId": { "type": "string" },
+    "eventName": { "type": "string", "const": "wishlist_trigger_opened" },
+    "timestamp": { "type": "string" },
+    "userId": { "type": "string" },
+    "productId": { "type": "string" },
+    "triggerType": { "type": "string" },
+    "channel": { "type": "string" },
+    "timeToOpenSeconds": { "type": "integer", "minimum": 0 }
+  },
+  "required": ["eventId", "eventName", "timestamp", "userId", "productId", "triggerType", "channel", "timeToOpenSeconds"]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "WishlistTriggerSentEvent",
+  "type": "object",
+  "properties": {
+    "eventId": { "type": "string" },
+    "eventName": { "type": "string", "const": "wishlist_trigger_sent" },
+    "timestamp": { "type": "string" },
+    "userId": { "type": "string" },
+    "productId": { "type": "string" },
+    "triggerType": { "type": "string", "enum": ["NEW_FIT_EVIDENCE", "SIZE_BACK_IN_STOCK", "LOW_INVENTORY_ALERT", "OCCASION_REMINDER"] },
+    "channel": { "type": "string", "enum": ["APNS", "FCM", "IN_APP"] }
+  },
+  "required": ["eventId", "eventName", "timestamp", "userId", "productId", "triggerType", "channel"]
+}

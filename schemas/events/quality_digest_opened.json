@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "QualityDigestOpenedEvent",
+  "type": "object",
+  "properties": {
+    "eventId": { "type": "string" },
+    "eventName": { "type": "string", "const": "quality_digest_opened" },
+    "timestamp": { "type": "string" },
+    "userId": { "type": "string" },
+    "productId": { "type": "string" },
+    "entrySurface": { "type": "string" },
+    "experimentGroup": { "type": "string" }
+  },
+  "required": ["eventId", "eventName", "timestamp", "userId", "productId", "entrySurface", "experimentGroup"]
+}

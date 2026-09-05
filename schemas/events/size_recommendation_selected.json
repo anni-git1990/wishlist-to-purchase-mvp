@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SizeRecommendationSelectedEvent",
+  "type": "object",
+  "properties": {
+    "eventId": { "type": "string" },
+    "eventName": { "type": "string", "const": "size_recommendation_selected" },
+    "timestamp": { "type": "string" },
+    "userId": { "type": "string" },
+    "productId": { "type": "string" },
+    "recommendedSize": { "type": "string" },
+    "selectedSize": { "type": "string" },
+    "acceptedRecommendation": { "type": "boolean" }
+  },
+  "required": ["eventId", "eventName", "timestamp", "userId", "productId", "recommendedSize", "selectedSize", "acceptedRecommendation"]
+}

@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "FitConfidenceImpressionEvent",
+  "type": "object",
+  "properties": {
+    "eventId": { "type": "string" },
+    "eventName": { "type": "string", "const": "fit_confidence_impression" },
+    "timestamp": { "type": "string" },
+    "userId": { "type": "string" },
+    "productId": { "type": "string" },
+    "recommendedSize": { "type": "string" },
+    "confidenceLevel": { "type": "string", "enum": ["HIGH", "MEDIUM", "LIMITED_EVIDENCE"] },
+    "evidenceCount": { "type": "integer", "minimum": 0 }
+  },
+  "required": ["eventId", "eventName", "timestamp", "userId", "productId", "recommendedSize", "confidenceLevel", "evidenceCount"]
+}

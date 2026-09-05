@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "WishlistItemRevisitedEvent",
+  "type": "object",
+  "properties": {
+    "eventId": { "type": "string" },
+    "eventName": { "type": "string", "const": "wishlist_item_revisited" },
+    "timestamp": { "type": "string" },
+    "userId": { "type": "string" },
+    "productId": { "type": "string" },
+    "daysSinceAdded": { "type": "integer", "minimum": 0 },
+    "revisitCount": { "type": "integer", "minimum": 1 }
+  },
+  "required": ["eventId", "eventName", "timestamp", "userId", "productId", "daysSinceAdded", "revisitCount"]
+}

@@ -1,0 +1,27 @@
+{
+  "catalog_audit": {
+    "total_apparel_products_audited": 450000,
+    "products_with_size_charts_pct": 94.2,
+    "products_with_min_10_text_reviews_pct": 78.5,
+    "products_with_verified_media_pct": 62.4,
+    "top_500_brands_size_chart_coverage_pct": 98.6
+  },
+  "historical_baseline": {
+    "window_days": 30,
+    "unique_wishlist_adders": 1500000,
+    "unique_wishlist_purchasers_30d": 180000,
+    "baseline_30d_purchaser_rate": 0.12,
+    "baseline_size_return_rate": 0.068
+  },
+  "experiment_power_analysis": {
+    "baseline_rate_p1": 0.12,
+    "target_rate_p2": 0.1242,
+    "absolute_lift": 0.0042,
+    "relative_lift_mde": 3.5,
+    "alpha": 0.05,
+    "power": 0.8,
+    "required_sample_size_per_group": 95390,
+    "total_required_sample_size": 190780,
+    "estimated_days_to_reach_sample": 4
+  }
+}

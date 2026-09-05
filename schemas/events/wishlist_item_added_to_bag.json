@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "WishlistItemAddedToBagEvent",
+  "type": "object",
+  "properties": {
+    "eventId": { "type": "string" },
+    "eventName": { "type": "string", "const": "wishlist_item_added_to_bag" },
+    "timestamp": { "type": "string" },
+    "userId": { "type": "string" },
+    "productId": { "type": "string" },
+    "selectedSize": { "type": "string" },
+    "daysSinceWishlistAdd": { "type": "integer", "minimum": 0 },
+    "experimentGroup": { "type": "string" }
+  },
+  "required": ["eventId", "eventName", "timestamp", "userId", "productId", "selectedSize", "daysSinceWishlistAdd", "experimentGroup"]
+}

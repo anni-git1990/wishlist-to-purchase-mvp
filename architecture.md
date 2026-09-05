@@ -43,10 +43,9 @@ The diagram below illustrates the end-to-end multi-tier architecture spanning Cl
 ```mermaid
 graph TB
     subgraph Client Surfaces [Client Layer]
-        iOS[iOS App - Swift/UIKit]
-        Android[Android App - Kotlin/Jetpack]
-        Web[Web App - React/Next.js]
-        Dash[Internal Experiment Dashboard]
+        iOS[iOS Native App - Swift/UIKit/SwiftUI]
+        Android[Android Native App - Kotlin/Jetpack Compose]
+        Dash[Internal Web Admin Dashboard]
     end
 
     subgraph Gateway [API & Routing Layer]
@@ -86,7 +85,6 @@ graph TB
     %% Routing
     iOS --> APIGW
     Android --> APIGW
-    Web --> APIGW
     Dash --> APIGW
 
     APIGW --> AuthService
@@ -128,7 +126,7 @@ graph TB
 
 ## 3. Client Architecture & UI Surfaces
 
-The MVP requires **4 dedicated surfaces**: 3 customer-facing client surfaces and 1 internal experiment reporting dashboard.
+The MVP requires **4 dedicated surfaces**: **3 customer-facing native mobile surfaces** (iOS & Android) and **1 internal web experiment reporting dashboard**. Customer-facing web surfaces are explicitly out of scope for this MVP to focus resources on Myntra's primary native mobile user base. Mobile apps are built natively using **Swift / UIKit / SwiftUI (iOS)** and **Kotlin / Jetpack Compose (Android)** for optimal performance, smooth animations, and native push notification handling.
 
 ```
 +-----------------------------------------------------------------------------------+

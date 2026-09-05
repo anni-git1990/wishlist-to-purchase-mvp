@@ -1,0 +1,232 @@
+openapi: 3.0.3
+info:
+  title: Myntra Wishlist Confidence Engine (WCE) Microservice API
+  description: Core REST API specs for personalized fit recommendations, review quality digests, confidence feedback, and decision triggers.
+  version: 1.0.0
+servers:
+  - url: https://api.myntra.com/api/v1
+    description: Production Gateway
+  - url: https://api.staging.myntra.com/api/v1
+    description: Staging Gateway
+
+paths:
+  /wishlist/{userId}/confidence:
+    get:
+      summary: Fetch Wishlist with Confidence Metadata
+      description: Returns all active wishlist items for a user enriched with size recommendations, quality digests, and trigger alerts.
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: X-Correlation-ID
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Wishlist payload with confidence metrics
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WishlistConfidenceResponse'
+
+  /products/{productId}/fit-confidence:
+    get:
+      summary: Fetch Detailed Fit Evidence
+      description: Returns size recommendation explanation, similar-body evidence, fit scales, and post-wash behavior for the Fit Detail Sheet.
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: userId
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Fit detail sheet evidence payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FitConfidenceDetailResponse'
+
+  /products/{productId}/quality-digest:
+    get:
+      summary: Fetch Review & Quality Digest
+      description: Returns aspect-based sentiment summaries, verified customer photos/videos, and durability scorecard.
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Quality digest detail payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QualityDigestResponse'
+
+  /products/{productId}/confidence-feedback:
+    post:
+      summary: Submit Feedback on Fit/Quality Accuracy
+      description: Captures user feedback on size recommendation or quality digest accuracy for offline model retraining.
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConfidenceFeedbackRequest'
+      responses:
+        '202':
+          description: Feedback accepted for model retraining
+
+  /wishlist/triggers/evaluate:
+    post:
+      summary: Evaluate Decision Notification Triggers
+      description: Internal microservice endpoint assessing trigger eligibility against frequency caps and suppression rules.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TriggerEvaluationRequest'
+      responses:
+        '200':
+          description: Evaluation complete with queued notification counts
+
+components:
+  schemas:
+    WishlistConfidenceResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+        data:
+          type: object
+          properties:
+            userId:
+              type: string
+            experimentGroup:
+              type: string
+              example: TREATMENT_FIT_QUALITY_V1
+            wishlistCount:
+              type: integer
+            items:
+              type: array
+              items:
+                type: object
+                properties:
+                  wishlistItemId:
+                    type: string
+                  productId:
+                    type: string
+                  brandName:
+                    type: string
+                  productTitle:
+                    type: string
+                  fitConfidence:
+                    type: object
+                    properties:
+                      confidenceLevel:
+                        type: string
+                        enum: [HIGH, MEDIUM, LIMITED_EVIDENCE]
+                      recommendedSize:
+                        type: string
+                      fitMatchPercentage:
+                        type: number
+                      explanation:
+                        type: string
+
+    FitConfidenceDetailResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        data:
+          type: object
+          properties:
+            productId:
+              type: string
+            personalization:
+              type: object
+              properties:
+                confidenceLevel:
+                  type: string
+                recommendedSize:
+                  type: string
+                primaryReason:
+                  type: string
+
+    QualityDigestResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        data:
+          type: object
+          properties:
+            productId:
+              type: string
+            totalReviewsAnalyzed:
+              type: integer
+            aspectSummaries:
+              type: array
+              items:
+                type: object
+                properties:
+                  aspect:
+                    type: string
+                  sentiment:
+                    type: string
+                  summary:
+                    type: string
+
+    ConfidenceFeedbackRequest:
+      type: object
+      required:
+        - userId
+        - feature
+        - helpful
+      properties:
+        userId:
+          type: string
+        feature:
+          type: string
+          enum: [FIT_CONFIDENCE, QUALITY_DIGEST]
+        recommendedSize:
+          type: string
+        selectedSize:
+          type: string
+        helpful:
+          type: boolean
+        issueType:
+          type: string
+
+    TriggerEvaluationRequest:
+      type: object
+      required:
+        - productId
+        - triggerEventType
+      properties:
+        productId:
+          type: string
+        triggerEventType:
+          type: string
+          enum: [NEW_FIT_EVIDENCE, SIZE_BACK_IN_STOCK, LOW_INVENTORY_ALERT, OCCASION_REMINDER]
+        evidenceThresholdMet:
+          type: boolean

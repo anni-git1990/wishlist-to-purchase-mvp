@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "WishlistItemAddedEvent",
+  "type": "object",
+  "properties": {
+    "eventId": { "type": "string" },
+    "eventName": { "type": "string", "const": "wishlist_item_added" },
+    "timestamp": { "type": "string" },
+    "userId": { "type": "string" },
+    "productId": { "type": "string" },
+    "variantId": { "type": "string" },
+    "sourceSurface": { "type": "string", "enum": ["PDP", "SEARCH", "HOME_FEED", "RECOMMENDATIONS"] }
+  },
+  "required": ["eventId", "eventName", "timestamp", "userId", "productId", "variantId", "sourceSurface"]
+}
